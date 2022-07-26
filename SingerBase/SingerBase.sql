@@ -1,5 +1,5 @@
 CREATE TABLE Singer(
-	SID VARCHAR(7) NOT NULL,
+    SID VARCHAR(7) NOT NULL,
     fname VARCHAR(50) NOT NULL,
     lname VARCHAR(50) NOT NULL,
     stage_name VARCHAR(50),
@@ -69,7 +69,7 @@ INSERT INTO Singer
 VALUES('SI20', 'Robyn', 'Fenty', 'Rihanna', 'f', 'Barbados');
 
 CREATE TABLE SB_User(
-	user_id VARCHAR(5) NOT NULL,
+    user_id VARCHAR(5) NOT NULL,
     username VARCHAR(20) NOT NULL,
     gender VARCHAR(6),
     email VARCHAR(50) NOT NULL,
@@ -108,13 +108,13 @@ INSERT INTO SB_User
 VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '61392152935');
 
 CREATE TABLE Album(
-	AID VARCHAR(5) NOT NULL,
+    AID VARCHAR(5) NOT NULL,
     SID VARCHAR(5) NOT NULL,
-	title VARCHAR(20),
+    title VARCHAR(20),
     genre VARCHAR(10),
     release_year INT,
     PRIMARY KEY(AID),
-	CONSTRAINT FK_AlbumSinger FOREIGN KEY(SID)
+    CONSTRAINT FK_AlbumSinger FOREIGN KEY(SID)
     REFERENCES Singer(SID)
 );
 
@@ -149,9 +149,9 @@ INSERT INTO Album
 VALUES('A10', 'SI3', 'yesteryear', 'pop', 2020);
 
 CREATE TABLE Song(
-	song_id VARCHAR(5) NOT NULL,
+    song_id VARCHAR(5) NOT NULL,
     SID VARCHAR(5) NOT NULL, 
-	AID VARCHAR(5),
+    AID VARCHAR(5),
     title VARCHAR(20),
     genre VARCHAR(10),
     release_year INT,
@@ -193,8 +193,8 @@ INSERT INTO Song
 VALUES('S10', 'SI3', 'A10', 'sao anh khong hieu?', 'pop', 2020);
 
 CREATE TABLE Song_List(
-	user_id VARCHAR(5),
-	song_list VARCHAR(20),
+    user_id VARCHAR(5),
+    song_list VARCHAR(20),
     CONSTRAINT FK_ListUser FOREIGN KEY(user_id)
     REFERENCES SB_User(user_id)
 );
@@ -215,7 +215,7 @@ INSERT INTO Song_List
 VALUES('U3', 'S9');
 
 CREATE TABLE Thread(
-	TID VARCHAR(5) NOT NULL,
+    TID VARCHAR(5) NOT NULL,
     topic VARCHAR(10) NOT NULL,
     user_id VARCHAR(5) NOT NULL,
     PRIMARY KEY(TID),
@@ -224,7 +224,7 @@ CREATE TABLE Thread(
 );
 
 CREATE TABLE Post(
-	PID VARCHAR(5) NOT NULL,
+    PID VARCHAR(5) NOT NULL,
     TID VARCHAR(5) NOT NULL,
     user_id VARCHAR(5) NOT NULL,
     PRIMARY KEY(PID),
@@ -236,8 +236,8 @@ CREATE TABLE Post(
 );
 
 CREATE TABLE Music_Group(
-	name VARCHAR(20) NOT NULL,
-	members VARCHAR(50) NOT NULL
+    name VARCHAR(20) NOT NULL,
+    members VARCHAR(50) NOT NULL
 );
 
 INSERT INTO Music_Group
@@ -250,22 +250,22 @@ INSERT INTO Music_Group
 VALUES('EXID', 'SI9');
 
 CREATE TABLE Country(
-	country_name VARCHAR(20) NOT NULL,
+    country_name VARCHAR(20) NOT NULL,
     capital VARCHAR(20),
     continent VARCHAR(15) NOT NULL,
     population INTEGER
 );
 
 CREATE TABLE Singer_Country(
-	SID VARCHAR(5) NOT NULL,
+    SID VARCHAR(5) NOT NULL,
     country_name VARCHAR(20) NOT NULL,
     CONSTRAINT FK_Singer_Country FOREIGN KEY(SID)
     REFERENCES Singer(SID)
 );
 
 CREATE TABLE User_Country(
-	user_id VARCHAR(5) NOT NULL,
-	country_name VARCHAR(20) NOT NULL,
+    user_id VARCHAR(5) NOT NULL,
+    country_name VARCHAR(20) NOT NULL,
     CONSTRAINT FK_User_Country FOREIGN KEY(user_id)
     REFERENCES SB_User(user_id)
 );
