@@ -69,7 +69,7 @@ INSERT INTO Singer
 VALUES('SI20', 'Robyn', 'Fenty', 'Rihanna', 'f', 'Barbados');
 
 CREATE TABLE SB_User(
-    user_id VARCHAR(5) NOT NULL,
+	user_id VARCHAR(5) NOT NULL,
     username VARCHAR(20) NOT NULL,
     gender VARCHAR(6),
     email VARCHAR(50) NOT NULL,
@@ -78,10 +78,10 @@ CREATE TABLE SB_User(
 );
 
 INSERT INTO SB_User
-VALUES('U1', 'flutecitylightsfly', 'f', 'yohomi7023@altpano.com', '16014815267');
+VALUES('U1', 'flutecitylightsfly', 'f', 'yohomi7023@altpano.com', '14025785765');
 
 INSERT INTO SB_User
-VALUES('U2', 'catmandolinneoaliens', 'f', 'ddeagal@googl.win', '59164644510');
+VALUES('U2', 'catmandolinneoaliens', 'f', 'ddeagal@googl.win', '17625437434');
 
 INSERT INTO SB_User
 VALUES('U3', 'hakureirei', 'f', 'hakureimiko@gmail.com', '81437492469');
@@ -108,13 +108,13 @@ INSERT INTO SB_User
 VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '61392152935');
 
 CREATE TABLE Album(
-    AID VARCHAR(5) NOT NULL,
+	AID VARCHAR(5) NOT NULL,
     SID VARCHAR(5) NOT NULL,
-    title VARCHAR(20),
+	title VARCHAR(20),
     genre VARCHAR(10),
     release_year INT,
     PRIMARY KEY(AID),
-    CONSTRAINT FK_AlbumSinger FOREIGN KEY(SID)
+	CONSTRAINT FK_AlbumSinger FOREIGN KEY(SID)
     REFERENCES Singer(SID)
 );
 
@@ -149,9 +149,9 @@ INSERT INTO Album
 VALUES('A10', 'SI3', 'yesteryear', 'pop', 2020);
 
 CREATE TABLE Song(
-    song_id VARCHAR(5) NOT NULL,
+	song_id VARCHAR(5) NOT NULL,
     SID VARCHAR(5) NOT NULL, 
-    AID VARCHAR(5),
+	AID VARCHAR(5),
     title VARCHAR(20),
     genre VARCHAR(10),
     release_year INT,
@@ -193,8 +193,8 @@ INSERT INTO Song
 VALUES('S10', 'SI3', 'A10', 'sao anh khong hieu?', 'pop', 2020);
 
 CREATE TABLE Song_List(
-    user_id VARCHAR(5),
-    song_list VARCHAR(20),
+	user_id VARCHAR(5),
+	song_list VARCHAR(20),
     CONSTRAINT FK_ListUser FOREIGN KEY(user_id)
     REFERENCES SB_User(user_id)
 );
@@ -215,16 +215,46 @@ INSERT INTO Song_List
 VALUES('U3', 'S9');
 
 CREATE TABLE Thread(
-    TID VARCHAR(5) NOT NULL,
-    topic VARCHAR(10) NOT NULL,
+	TID VARCHAR(5) NOT NULL,
+    topic VARCHAR(50) NOT NULL,
     user_id VARCHAR(5) NOT NULL,
     PRIMARY KEY(TID),
     CONSTRAINT FK_UserThread FOREIGN KEY(user_id)
     REFERENCES SB_User(user_id)
 );
 
+INSERT INTO Thread
+VALUES('T1', 'Popular dance moves', 'U8');
+
+INSERT INTO Thread
+VALUES('T2', 'Songs about heartbreak', 'U3');
+
+INSERT INTO Thread
+VALUES('T3', 'Music for kids', 'U9');
+
+INSERT INTO Thread
+VALUES('T4', 'Songs for parents', 'U1');
+
+INSERT INTO Thread
+VALUES('T5', 'Songs you dislike', 'U2');
+
+INSERT INTO Thread
+VALUES('T6', 'Songs you sleep to', 'U8');
+
+INSERT INTO Thread
+VALUES('T7', 'K-pop vs. J-pop', 'U7');
+
+INSERT INTO Thread
+VALUES('T8', 'European stuff', 'U3');
+
+INSERT INTO Thread
+VALUES('T9', 'Angry time songs', 'U8');
+
+INSERT INTO Thread
+VALUES('T10', 'Best song of 2022', 'U1');
+
 CREATE TABLE Post(
-    PID VARCHAR(5) NOT NULL,
+	PID VARCHAR(5) NOT NULL,
     TID VARCHAR(5) NOT NULL,
     user_id VARCHAR(5) NOT NULL,
     PRIMARY KEY(PID),
@@ -235,9 +265,39 @@ CREATE TABLE Post(
     REFERENCES SB_User(user_id)
 );
 
+INSERT INTO Post
+VALUES('P1', 'T3', 'U8');
+
+INSERT INTO Post
+VALUES('P2', 'T2', 'U10');
+
+INSERT INTO Post
+VALUES('P3', 'T1', 'U9');
+
+INSERT INTO Post
+VALUES('P4', 'T4', 'U1');
+
+INSERT INTO Post
+VALUES('P5', 'T9', 'U2');
+
+INSERT INTO Post
+VALUES('P6', 'T5', 'U3');
+
+INSERT INTO Post
+VALUES('P7', 'T6', 'U8');
+
+INSERT INTO Post
+VALUES('P8', 'T7', 'U8');
+
+INSERT INTO Post
+VALUES('P9', 'T8', 'U9');
+
+INSERT INTO Post
+VALUES('P10', 'T10', 'U8');
+
 CREATE TABLE Music_Group(
-    name VARCHAR(20) NOT NULL,
-    members VARCHAR(50) NOT NULL
+	name VARCHAR(20) NOT NULL,
+	members VARCHAR(50) NOT NULL
 );
 
 INSERT INTO Music_Group
@@ -250,22 +310,99 @@ INSERT INTO Music_Group
 VALUES('EXID', 'SI9');
 
 CREATE TABLE Country(
-    country_name VARCHAR(20) NOT NULL,
+	country_name VARCHAR(20) NOT NULL,
     capital VARCHAR(20),
     continent VARCHAR(15) NOT NULL,
     population INTEGER
 );
 
+INSERT INTO Country
+VALUES('Australia', 'Canberra', 'Oceania', 25690000);
+
+INSERT INTO Country
+VALUES('Canada', 'Ottawa', 'North America', 38000000);
+
+INSERT INTO Country
+VALUES('France', 'Paris', 'Europe', 67390000);
+
+INSERT INTO Country
+VALUES('Germany', 'Berlin', 'Europe', 83240000);
+
+INSERT INTO Country
+VALUES('Japan', 'Tokyo', 'Asia', 125800000);
+
+INSERT INTO Country
+VALUES('Kazakhstan', 'Nur-Sultan', 'Asia', 18750000);
+
+INSERT INTO Country
+VALUES('Russia', 'Moscow', 'Europe', 144100000);
+
+INSERT INTO Country
+VALUES('South Africa', 'Cape Town', 'Africa', 59310000);
+
+INSERT INTO Country
+VALUES('South Korea', 'Seoul', 'Asia', 51780000);
+
+INSERT INTO Country
+VALUES('Thailand', 'Bangkok', 'Asia', 69800000);
+
+INSERT INTO Country
+VALUES('USA', 'Washington D.C.', 'North America', 329500000);
+
+INSERT INTO Country
+VALUES('Vietnam', 'Hanoi', 'Asia', 97340000);
+
 CREATE TABLE Singer_Country(
-    SID VARCHAR(5) NOT NULL,
     country_name VARCHAR(20) NOT NULL,
-    CONSTRAINT FK_Singer_Country FOREIGN KEY(SID)
-    REFERENCES Singer(SID)
+	singer_list VARCHAR(30) NOT NULL
 );
 
+INSERT INTO Singer_Country
+VALUES('Canada', 'SI17');
+
+INSERT INTO Singer_Country
+VALUES('France', 'SI10');
+
+INSERT INTO Singer_Country
+VALUES('Germany', 'SI6, SI18');
+
+INSERT INTO Singer_Country
+VALUES('Japan', 'SI1, SI14, SI15');
+
+INSERT INTO Singer_Country
+VALUES('Kazakhstan', 'SI2, SI13');
+
+INSERT INTO Singer_Country
+VALUES('South Korea', 'SI9');
+
+INSERT INTO Singer_Country
+VALUES('Thailand', 'SI1, SI5');
+
+INSERT INTO Singer_Country
+VALUES('USA', 'SI16, SI20');
+
+INSERT INTO Singer_Country
+VALUES('Vietnam', 'SI2, SI3, SI4, SI7, SI8, SI9');
+
 CREATE TABLE User_Country(
-    user_id VARCHAR(5) NOT NULL,
-    country_name VARCHAR(20) NOT NULL,
-    CONSTRAINT FK_User_Country FOREIGN KEY(user_id)
-    REFERENCES SB_User(user_id)
+	country_name VARCHAR(20) NOT NULL,
+    user_list VARCHAR(30) NOT NULL
 );
+
+INSERT INTO User_Country
+VALUES('Australia', 'U10');
+
+INSERT INTO User_Country
+VALUES('Canada', 'U4, U5, U6');
+
+INSERT INTO User_Country
+VALUES('Japan', 'U3, U9');
+
+INSERT INTO User_Country
+VALUES('Russia', 'U7');
+
+INSERT INTO User_Country
+VALUES('South Africa', 'U8');
+
+INSERT INTO User_Country
+VALUES('USA', 'U1, U2');
