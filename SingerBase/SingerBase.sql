@@ -110,11 +110,11 @@ VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '61392152935');
 CREATE TABLE Album(
     AID VARCHAR(5) NOT NULL,
     SID VARCHAR(5) NOT NULL,
-	title VARCHAR(20),
+    title VARCHAR(20),
     genre VARCHAR(10),
     release_year INT,
     PRIMARY KEY(AID),
-	CONSTRAINT FK_AlbumSinger FOREIGN KEY(SID)
+    CONSTRAINT FK_AlbumSinger FOREIGN KEY(SID)
     REFERENCES Singer(SID)
 );
 
@@ -149,9 +149,9 @@ INSERT INTO Album
 VALUES('A10', 'SI3', 'yesteryear', 'pop', 2020);
 
 CREATE TABLE Song(
-	song_id VARCHAR(5) NOT NULL,
+    song_id VARCHAR(5) NOT NULL,
     SID VARCHAR(5) NOT NULL, 
-	AID VARCHAR(5),
+    AID VARCHAR(5),
     title VARCHAR(20),
     genre VARCHAR(10),
     release_year INT,
@@ -193,8 +193,8 @@ INSERT INTO Song
 VALUES('S10', 'SI3', 'A10', 'sao anh khong hieu?', 'pop', 2020);
 
 CREATE TABLE Song_List(
-	user_id VARCHAR(5),
-	song_list VARCHAR(20),
+    user_id VARCHAR(5),
+    song_list VARCHAR(20),
     CONSTRAINT FK_ListUser FOREIGN KEY(user_id)
     REFERENCES SB_User(user_id)
 );
@@ -215,7 +215,7 @@ INSERT INTO Song_List
 VALUES('U3', 'S9');
 
 CREATE TABLE Thread(
-	TID VARCHAR(5) NOT NULL,
+    TID VARCHAR(5) NOT NULL,
     topic VARCHAR(50) NOT NULL,
     user_id VARCHAR(5) NOT NULL,
     PRIMARY KEY(TID),
@@ -254,7 +254,7 @@ INSERT INTO Thread
 VALUES('T10', 'Best song of 2022', 'U1');
 
 CREATE TABLE Post(
-	PID VARCHAR(5) NOT NULL,
+    PID VARCHAR(5) NOT NULL,
     TID VARCHAR(5) NOT NULL,
     user_id VARCHAR(5) NOT NULL,
     PRIMARY KEY(PID),
@@ -296,8 +296,8 @@ INSERT INTO Post
 VALUES('P10', 'T10', 'U8');
 
 CREATE TABLE Music_Group(
-	name VARCHAR(20) NOT NULL,
-	members VARCHAR(50) NOT NULL
+    name VARCHAR(20) NOT NULL,
+    members VARCHAR(50) NOT NULL
 );
 
 INSERT INTO Music_Group
@@ -310,7 +310,7 @@ INSERT INTO Music_Group
 VALUES('EXID', 'SI9');
 
 CREATE TABLE Country(
-	country_name VARCHAR(20) NOT NULL,
+    country_name VARCHAR(20) NOT NULL,
     capital VARCHAR(20),
     continent VARCHAR(15) NOT NULL,
     population INTEGER
@@ -354,7 +354,7 @@ VALUES('Vietnam', 'Hanoi', 'Asia', 97340000);
 
 CREATE TABLE Singer_Country(
     country_name VARCHAR(20) NOT NULL,
-	singer_list VARCHAR(30) NOT NULL
+    singer_list VARCHAR(30) NOT NULL
 );
 
 INSERT INTO Singer_Country
@@ -385,7 +385,7 @@ INSERT INTO Singer_Country
 VALUES('Vietnam', 'SI2, SI3, SI4, SI7, SI8, SI9');
 
 CREATE TABLE User_Country(
-	country_name VARCHAR(20) NOT NULL,
+    country_name VARCHAR(20) NOT NULL,
     user_list VARCHAR(30) NOT NULL
 );
 
