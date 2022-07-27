@@ -408,7 +408,7 @@ INSERT INTO User_Country
 VALUES('USA', 'U1, U2');
 
 CREATE TABLE User_Fans_Singer(
-	user_id VARCHAR(5) NOT NULL,
+    user_id VARCHAR(5) NOT NULL,
     singer_list VARCHAR(20) NOT NULL,
     CONSTRAINT FK_UserFansSinger FOREIGN KEY(user_id)
     REFERENCES SB_User(user_id)
