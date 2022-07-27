@@ -69,7 +69,7 @@ INSERT INTO Singer
 VALUES('SI20', 'Robyn', 'Fenty', 'Rihanna', 'f', 'Barbados');
 
 CREATE TABLE SB_User(
-	user_id VARCHAR(5) NOT NULL,
+    user_id VARCHAR(5) NOT NULL,
     username VARCHAR(20) NOT NULL,
     gender VARCHAR(6),
     email VARCHAR(50) NOT NULL,
@@ -108,7 +108,7 @@ INSERT INTO SB_User
 VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '61392152935');
 
 CREATE TABLE Album(
-	AID VARCHAR(5) NOT NULL,
+    AID VARCHAR(5) NOT NULL,
     SID VARCHAR(5) NOT NULL,
 	title VARCHAR(20),
     genre VARCHAR(10),
