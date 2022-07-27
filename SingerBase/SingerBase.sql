@@ -406,3 +406,31 @@ VALUES('South Africa', 'U8');
 
 INSERT INTO User_Country
 VALUES('USA', 'U1, U2');
+
+CREATE TABLE User_Fans_Singer(
+	user_id VARCHAR(5) NOT NULL,
+    singer_list VARCHAR(20) NOT NULL,
+    CONSTRAINT FK_UserFansSinger FOREIGN KEY(user_id)
+    REFERENCES SB_User(user_id)
+);
+
+INSERT INTO User_Fans_Singer
+VALUES('U1', 'SI4, SI2, SI9, SI5');
+
+INSERT INTO User_Fans_Singer
+VALUES('U3', 'SI6, SI3, SI20');
+
+INSERT INTO User_Fans_Singer
+VALUES('U4', 'SI8, SI10, SI13');
+
+INSERT INTO User_Fans_Singer
+VALUES('U5', 'SI10, SI12');
+
+INSERT INTO User_Fans_Singer
+VALUES('U7', 'SI3');
+
+INSERT INTO User_Fans_Singer
+VALUES('U8', 'SI9, SI10');
+
+INSERT INTO User_Fans_Singer
+VALUES('U9', 'SI11, SI14');
