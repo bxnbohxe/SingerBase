@@ -59,15 +59,17 @@ CREATE TABLE Song(
 );
 
 CREATE TABLE Song_List(
+	song_list_id VARCHAR(5) NOT NULL,
     user_id VARCHAR(5) NOT NULL,
+	PRIMARY KEY (song_list_id),
     FOREIGN KEY (user_id) REFERENCES SB_User (user_id)
 );
 
 CREATE TABLE Song_Song_List_Junction(
-	user_id VARCHAR(5) NOT NULL,
+	song_list_id VARCHAR(5) NOT NULL,
 	song_id VARCHAR(5) NOT NULL,
-	PRIMARY KEY (user_id, song_id),
-	FOREIGN KEY (user_id) REFERENCES SB_User (user_id),
+	PRIMARY KEY (song_list_id, song_id),
+	FOREIGN KEY (song_list_id) REFERENCES Song_List (song_list_id),
 	FOREIGN KEY (song_id) REFERENCES Song (song_id)
 );
 
