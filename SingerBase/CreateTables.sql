@@ -17,7 +17,7 @@ CREATE TABLE Singer(
     fname VARCHAR(50) NOT NULL,
     lname VARCHAR(50) NOT NULL,
     stage_name VARCHAR(50),
-    gender VARCHAR(6),
+    gender VARCHAR(10),
     country VARCHAR(30) NOT NULL,
 	group_name VARCHAR(30),
     PRIMARY KEY(SID),
