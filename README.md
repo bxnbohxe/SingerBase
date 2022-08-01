@@ -1,8 +1,8 @@
 # SingerBase
 ## Division of Roles
-###### Alicia Le
+###### Alicia Le (bxnbohxe)
 <sub>Database code</sub>
-###### Andrew Lu
+###### Andrew Lu (VolTorian)
 <sub>Proofreading and Normalization of DB, Java Database Connectivity (JDBC) code</sub>
-###### Tran Phan
+###### Tran Phan (alextrnphn)
 <sub>Front-end code</sub>
