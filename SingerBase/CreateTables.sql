@@ -28,7 +28,7 @@ CREATE TABLE Singer(
 CREATE TABLE SB_User(
     user_id VARCHAR(5) NOT NULL,
     username VARCHAR(20) NOT NULL,
-    gender VARCHAR(6),
+    gender VARCHAR(10),
     email VARCHAR(50) NOT NULL,
     mobile_no CHAR(10) NOT NULL,
 	country VARCHAR(30),
