@@ -1,0 +1,11 @@
+DROP TABLE User_Fans_Singer_Junction;
+DROP TABLE Post;
+DROP TABLE Thread;
+DROP TABLE Song_Song_List_Junction;
+DROP TABLE Song_List;
+DROP TABLE Song;
+DROP TABLE Album;
+DROP TABLE SB_User;
+DROP TABLE Singer;
+DROP TABLE Music_Group;
+DROP TABLE Country;

@@ -30,7 +30,7 @@ CREATE TABLE SB_User(
     username VARCHAR(20) NOT NULL,
     gender VARCHAR(6),
     email VARCHAR(50) NOT NULL,
-    mobile_no CHAR(11) NOT NULL,
+    mobile_no CHAR(10) NOT NULL,
 	country VARCHAR(30),
     PRIMARY KEY(user_id),
 	FOREIGN KEY (country) REFERENCES Country (country_name)
@@ -97,18 +97,3 @@ CREATE TABLE User_Fans_Singer_Junction(
 	FOREIGN KEY (user_id) REFERENCES SB_User (user_id),
 	FOREIGN KEY (SID) REFERENCES Singer (SID)
 );
-/*CREATE TABLE Singer_Country(
-    country_name VARCHAR(20) NOT NULL,
-    singer_list VARCHAR(30) NOT NULL
-);*/
-
-/*CREATE TABLE User_Country(
-    country_name VARCHAR(20) NOT NULL,
-    user_list VARCHAR(30) NOT NULL
-);*/
-
-/*CREATE TABLE User_Fans_Singer(
-    user_id VARCHAR(5) NOT NULL,
-    singer_list VARCHAR(20) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES SB_User (user_id)
-);*/
