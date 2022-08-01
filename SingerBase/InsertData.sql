@@ -13,6 +13,7 @@ INSERT ALL
 	INTO Country VALUES('Thailand', 'Bangkok', 'Asia', 69800000)
 	INTO Country VALUES('USA', 'Washington D.C.', 'North America', 329500000)
 	INTO Country VALUES('Vietnam', 'Hanoi', 'Asia', 97340000)
+	INTO Country VALUES('Not listed', null, 'None', null)
 SELECT * FROM dual;
 
 INSERT ALL
@@ -45,16 +46,16 @@ INSERT ALL
 SELECT * FROM dual;
 
 INSERT ALL
-	INTO SB_User VALUES('U1', 'flutecitylightsfly', 'f', 'yohomi7023@altpano.com', '14025785765', null)
-	INTO SB_User VALUES('U2', 'catmandolinneoaliens', 'f', 'ddeagal@googl.win', '17625437434', null)
-	INTO SB_User VALUES('U3', 'hakureirei', 'f', 'hakureimiko@gmail.com', '81437492469', null)
-	INTO SB_User VALUES('U4', 'porchpetticoat', 'm', 'tcfresher822@cupremplus.com', '17255716637', null)
-	INTO SB_User VALUES('U5', 'glandexactly', 'm', 'junior58@gotcertify.com', '12424282097', null)
-	INTO SB_User VALUES('U6', 'bibpercentage', 'f', 'nataligentle@playfunplus.com', '14505242296', null)
-	INTO SB_User VALUES('U7', 'guiltypears', 'f', 'prancvyt@hacktoy.com', '74861788527', null)
-	INTO SB_User VALUES('U8', 'shadowclatter', 'm', 'elmarslove@encuestan.com', '27800619848', null)
-	INTO SB_User VALUES('U9', 'kourindou', 'm', 'morichika_r@gmail.com', '81767290753', null)
-	INTO SB_User VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '61392152935', null)
+	INTO SB_User VALUES('U1', 'flutecitylightsfly', 'f', 'yohomi7023@altpano.com', '4025785765', 'USA')
+	INTO SB_User VALUES('U2', 'catmandolinneoaliens', 'f', 'ddeagal@googl.win', '7625437434', 'USA')
+	INTO SB_User VALUES('U3', 'hakureirei', 'f', 'hakureimiko@gmail.com', '1437492469', 'Japan')
+	INTO SB_User VALUES('U4', 'porchpetticoat', 'm', 'tcfresher822@cupremplus.com', '7255716637', 'Canada')
+	INTO SB_User VALUES('U5', 'glandexactly', 'm', 'junior58@gotcertify.com', '2424282097', 'Canada')
+	INTO SB_User VALUES('U6', 'bibpercentage', 'f', 'nataligentle@playfunplus.com', '4505242296', 'Canada')
+	INTO SB_User VALUES('U7', 'guiltypears', 'f', 'prancvyt@hacktoy.com', '4861788527', 'Russia')
+	INTO SB_User VALUES('U8', 'shadowclatter', 'm', 'elmarslove@encuestan.com', '7800619848', 'South Africa')
+	INTO SB_User VALUES('U9', 'kourindou', 'm', 'morichika_r@gmail.com', '1767290753', 'Japan')
+	INTO SB_User VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '1392152935', 'Australia')
 SELECT * FROM dual;
 
 INSERT ALL
