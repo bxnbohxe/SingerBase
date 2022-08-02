@@ -17,9 +17,37 @@ public class SQLProxy
 	 */
 	protected boolean addToFavorites() throws SQLException {
 		String favoritesId = initializeFavorites();
-		System.out.println("id for your list of favorite songs: " + favoritesId);
+		//System.out.println("id for your list of favorite songs: " + favoritesId);
+		String songName;
+		System.out.print("Enter name of the song to favorite: ");
+		Scanner scan = new Scanner(System.in);
+		songName = scan.nextLine();
 		
-		return false;//temp
+		Statement s = C.createStatement();
+		String sql = "SELECT song_id FROM Song WHERE title = '" + songName + "'";
+		s.executeQuery(sql);
+		ResultSet result = s.getResultSet();
+		
+		if (result.next()) {//song is found
+			String songId = result.getString("song_id");
+			
+			sql = "SELECT * FROM Song_Song_List_Junction WHERE song_id = '" + songId + "' AND song_list_id = '" + favoritesId + "'";
+			s.executeQuery(sql);
+			result = s.getResultSet();
+			if (result.next()) {//song already exists in user's favorited song list
+				System.out.println("Song already exists in your favorites.");
+				return false;
+			}
+			else {
+				sql = "INSERT INTO Song_Song_List_Junction VALUES ('" + favoritesId + "', '" + songId + "'";
+				s.executeUpdate(sql);
+				return true;
+			}
+		}
+		else {
+			System.out.println("Song not found.");
+			return false;
+		}
 	}
 	
 	/**Checks to see if the user already has a favorited songs list and creates a list if one doesn't exist for that user
