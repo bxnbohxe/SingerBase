@@ -46,16 +46,16 @@ INSERT ALL
 SELECT * FROM dual;
 
 INSERT ALL
-	INTO SB_User VALUES('U1', 'flutecitylightsfly', 'f', 'yohomi7023@altpano.com', '4025785765', 'USA')
-	INTO SB_User VALUES('U2', 'catmandolinneoaliens', 'f', 'ddeagal@googl.win', '7625437434', 'USA')
-	INTO SB_User VALUES('U3', 'hakureirei', 'f', 'hakureimiko@gmail.com', '1437492469', 'Japan')
-	INTO SB_User VALUES('U4', 'porchpetticoat', 'm', 'tcfresher822@cupremplus.com', '7255716637', 'Canada')
-	INTO SB_User VALUES('U5', 'glandexactly', 'm', 'junior58@gotcertify.com', '2424282097', 'Canada')
-	INTO SB_User VALUES('U6', 'bibpercentage', 'f', 'nataligentle@playfunplus.com', '4505242296', 'Canada')
-	INTO SB_User VALUES('U7', 'guiltypears', 'f', 'prancvyt@hacktoy.com', '4861788527', 'Russia')
-	INTO SB_User VALUES('U8', 'shadowclatter', 'm', 'elmarslove@encuestan.com', '7800619848', 'South Africa')
-	INTO SB_User VALUES('U9', 'kourindou', 'm', 'morichika_r@gmail.com', '1767290753', 'Japan')
-	INTO SB_User VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '1392152935', 'Australia')
+	INTO SB_User VALUES('U1', 'flutecitylightsfly', 'password1','f', 'yohomi7023@altpano.com', '4025785765', 'USA')
+	INTO SB_User VALUES('U2', 'catmandolinneoaliens', 'password2', 'f', 'ddeagal@googl.win', '7625437434', 'USA')
+	INTO SB_User VALUES('U3', 'hakureirei', 'password3', 'f', 'hakureimiko@gmail.com', '1437492469', 'Japan')
+	INTO SB_User VALUES('U4', 'porchpetticoat', 'password4', 'm', 'tcfresher822@cupremplus.com', '7255716637', 'Canada')
+	INTO SB_User VALUES('U5', 'glandexactly', 'password5', 'm', 'junior58@gotcertify.com', '2424282097', 'Canada')
+	INTO SB_User VALUES('U6', 'bibpercentage', 'password6', 'f', 'nataligentle@playfunplus.com', '4505242296', 'Canada')
+	INTO SB_User VALUES('U7', 'guiltypears', 'password7', 'f', 'prancvyt@hacktoy.com', '4861788527', 'Russia')
+	INTO SB_User VALUES('U8', 'shadowclatter', 'password8', 'm', 'elmarslove@encuestan.com', '7800619848', 'South Africa')
+	INTO SB_User VALUES('U9', 'kourindou', 'password9', 'm', 'morichika_r@gmail.com', '1767290753', 'Japan')
+	INTO SB_User VALUES('U10', 'heathspoonbill', 'password10', 'm', 'runeab@nbobd.com', '1392152935', 'Australia')
 SELECT * FROM dual;
 
 INSERT ALL
