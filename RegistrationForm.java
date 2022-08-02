@@ -1,3 +1,5 @@
+package singerbase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,50 +10,81 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class RegistrationForm extends JDialog {
-    private JTextField tfName;
-    private JTextField tfEmail;
-    private JTextField tfPhone;
-    private JTextField tfAddress;
-    private JPasswordField pfPassword;
-    private JPasswordField pfConfirmPassword;
-    private JButton btnRegister;
-    private JButton btnCancel;
-    private JPanel registerPanel;
+    JTextField tfUserName, tfEmail, tfPhone;
+//    JTextField tfAddress;
+    JPasswordField pfPassword, pfConfirmPassword;
+    JLabel lblUserName, lblEmail, lblPhone, lblPassword, lblConfirmPassword;
+    JButton btnRegister, btnCancel;
+    JPanel loginPanel;
 
-    public RegistrationForm(JFrame parent) {
-        super(parent);
+    public RegistrationForm() {
+//        super(parent);
         setTitle("Create a new account");
-        setContentPane(registerPanel);
-        setMinimumSize(new Dimension(450, 474));
+//        setContentPane(registerPanel);
+//        setMinimumSize(new Dimension(450, 474));
         setModal(true);
-        setLocationRelativeTo(parent);
+//        setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        btnRegister.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                registerUser();
-            }
-        });
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        });
+        lblUserName = new JLabel();  
+        lblUserName.setText("Username");      
+        tfUserName = new JTextField(15);
+        
+        lblEmail = new JLabel();  
+        lblEmail.setText("Email");      
+        tfEmail = new JTextField(15);
+        
+        lblPhone = new JLabel();  
+        lblPhone.setText("Mobile");      
+        tfPhone = new JTextField(15);
+        
+        lblPassword = new JLabel();  
+        lblPassword.setText("Password"); 
+        pfPassword = new JPasswordField(15);
+        
+        lblConfirmPassword = new JLabel();  
+        lblConfirmPassword.setText("Confirm Password"); 
+        pfConfirmPassword = new JPasswordField(15);
+        
+        btnRegister = new JButton("REGISTER");
+        btnCancel = new JButton("CANCEL");
+        
+        loginPanel = new JPanel(new GridLayout(6, 1));
+        loginPanel.add(lblUserName);
+        loginPanel.add(tfUserName); 
+        loginPanel.add(lblEmail);
+        loginPanel.add(tfEmail);  
+        loginPanel.add(lblPhone);
+        loginPanel.add(tfPhone);
+        loginPanel.add(lblPassword);
+        loginPanel.add(pfPassword);   
+        loginPanel.add(lblConfirmPassword);
+        loginPanel.add(pfConfirmPassword);
+        loginPanel.add(btnRegister);
+        loginPanel.add(btnCancel);
+        add(loginPanel, BorderLayout.CENTER);
+        
+//        btnRegister.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                registerUser();
+//            }
+//        });
+        btnRegister.addActionListener(e -> { registerUser(); });
+        btnCancel.addActionListener(e -> dispose());
 
-        setVisible(true);
+//        setVisible(true);
     }
 
     private void registerUser() {
-        String name = tfName.getText();
+        String name = tfUserName.getText();
         String email = tfEmail.getText();
         String phone = tfPhone.getText();
-        String address = tfAddress.getText();
+//        String address = tfAddress.getText();
         String password = String.valueOf(pfPassword.getPassword());
         String confirmPassword = String.valueOf(pfConfirmPassword.getPassword());
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty() || password.isEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Please enter all fields",
                     "Try again",
@@ -67,7 +100,7 @@ public class RegistrationForm extends JDialog {
             return;
         }
 
-        user = addUserToDatabase(name, email, phone, address, password);
+        user = addUserToDatabase(name, email, phone, password);
         if (user != null) {
             dispose();
         }
@@ -80,7 +113,7 @@ public class RegistrationForm extends JDialog {
     }
 
     public User user;
-    private User addUserToDatabase(String name, String email, String phone, String address, String password) {
+    private User addUserToDatabase(String name, String email, String phone, String password) {
         User user = null;
         final String DB_URL = "jdbc:mysql://localhost/MyStore?serverTimezone=UTC";
         final String USERNAME = "root";
@@ -91,14 +124,14 @@ public class RegistrationForm extends JDialog {
             // Connected to database successfully...
 
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO users (name, email, phone, address, password) " +
-                    "VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO sb_user (user_id, username, email, mobile_no, password) " +
+                    "select (SELECT CONCAT('U', (count(*) + 1)) FROM sb_user), ?, ?, ?, ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, phone);
-            preparedStatement.setString(4, address);
-            preparedStatement.setString(5, password);
+//            preparedStatement.setString(4, address);
+            preparedStatement.setString(4, password);
 
             //Insert row into the table
             int addedRows = preparedStatement.executeUpdate();
@@ -107,8 +140,14 @@ public class RegistrationForm extends JDialog {
                 user.name = name;
                 user.email = email;
                 user.phone = phone;
-                user.address = address;
+//                user.address = address;
                 user.password = password;
+            }
+            if (user != null) {
+                System.out.println("Successful registration of: " + user.name);
+            }
+            else {
+                System.out.println("Registration canceled");
             }
 
             stmt.close();
@@ -121,13 +160,25 @@ public class RegistrationForm extends JDialog {
     }
 
     public static void main(String[] args) {
-        RegistrationForm myForm = new RegistrationForm(null);
-        User user = myForm.user;
-        if (user != null) {
-            System.out.println("Successful registration of: " + user.name);
-        }
-        else {
-            System.out.println("Registration canceled");
-        }
+//        RegistrationForm myForm = new RegistrationForm(null);
+//        User user = myForm.user;
+//        if (user != null) {
+//            System.out.println("Successful registration of: " + user.name);
+//        }
+//        else {
+//            System.out.println("Registration canceled");
+//        }
+    try  
+        {  
+            //create instance of the LoginForm  
+            RegistrationForm objRegistrationForm = new RegistrationForm();  
+            objRegistrationForm.setSize(500,200);
+            objRegistrationForm.setVisible(true);  
+        }  
+        catch(Exception e)  
+        {     
+            //handle exception   
+            JOptionPane.showMessageDialog(null, e.getMessage());  
+        }  
     }
 }
