@@ -1,23 +1,47 @@
+package singerbase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 
 public class LoginForm extends JDialog {
-    private JTextField tfEmail;
-    private JPasswordField pfPassword;
-    private JButton btnOK;
-    private JButton btnCancel;
-    private JPanel loginPanel;
+    JTextField tfEmail;
+    JPasswordField pfPassword;
+    JButton btnOK, btnCancel;
+    JLabel lblEmail, lblPassword;
+    JPanel loginPanel;
 
-    public LoginForm(JFrame parent) {
-        super(parent);
+    public LoginForm() {
+//        super(parent);
         setTitle("Login");
-        setContentPane(loginPanel);
-        setMinimumSize(new Dimension(450, 474));
+//        setContentPane(loginPanel);
+//        setMinimumSize(new Dimension(450, 474));
         setModal(true);
-        setLocationRelativeTo(parent);
+//        setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
+//
+        
+//
+//        setVisible(true);
+        lblEmail = new JLabel();  
+        lblEmail.setText("Username");      
+          
+        
+        tfEmail = new JTextField(15);
+        lblPassword = new JLabel();  
+        lblPassword.setText("Password"); 
+        
+        pfPassword = new JPasswordField(15);
+        btnOK = new JButton("SUBMIT");
+        btnCancel = new JButton("CANCEL");
+        loginPanel = new JPanel(new GridLayout(3, 1));  
+        loginPanel.add(lblEmail);
+        loginPanel.add(tfEmail);  
+        loginPanel.add(lblPassword);
+        loginPanel.add(pfPassword);   
+        loginPanel.add(btnOK);
+        loginPanel.add(btnCancel);
+        add(loginPanel, BorderLayout.CENTER);
         btnOK.addActionListener(e -> {
             String email = tfEmail.getText();
             String password = String.valueOf(pfPassword.getPassword());
@@ -36,7 +60,6 @@ public class LoginForm extends JDialog {
         });
         btnCancel.addActionListener(e -> dispose());
 
-        setVisible(true);
     }
 
     public User user;
@@ -49,10 +72,10 @@ public class LoginForm extends JDialog {
 
         try{
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            // Connection to db successful
+    
 
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM users WHERE email=? AND password=?";
+            String sql = "SELECT * FROM sb_user WHERE email=? AND password=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
@@ -61,13 +84,22 @@ public class LoginForm extends JDialog {
 
             if (resultSet.next()) {
                 user = new User();
-                user.name = resultSet.getString("name");
+                user.name = resultSet.getString("username");
                 user.email = resultSet.getString("email");
-                user.phone = resultSet.getString("phone");
-                user.address = resultSet.getString("address");
+                user.phone = resultSet.getString("mobile_no");
+//                user.address = resultSet.getString("address");
                 user.password = resultSet.getString("password");
             }
 
+                    if (user != null) {
+            System.out.println("Successful Authentication of: " + user.name);
+            System.out.println("          Email: " + user.email);
+            System.out.println("          Phone: " + user.phone);
+//            System.out.println("          Address: " + user.address);
+        }
+        else {
+            System.out.println("Authentication canceled");
+        }
             stmt.close();
             conn.close();
 
@@ -80,16 +112,29 @@ public class LoginForm extends JDialog {
     }
 
     public static void main(String[] args) {
-        LoginForm loginForm = new LoginForm(null);
-        User user = loginForm.user;
-        if (user != null) {
-            System.out.println("Successful Authentication of: " + user.name);
-            System.out.println("          Email: " + user.email);
-            System.out.println("          Phone: " + user.phone);
-            System.out.println("          Address: " + user.address);
-        }
-        else {
-            System.out.println("Authentication canceled");
-        }
+        try  
+        {  
+            //create instance of the LoginForm  
+            LoginForm objLoginForm = new LoginForm();  
+            objLoginForm.setSize(300,100);
+            objLoginForm.setVisible(true);  
+        }  
+        catch(Exception e)  
+        {     
+            //handle exception   
+            JOptionPane.showMessageDialog(null, e.getMessage());  
+        }  
+//        JFrame objJFrame = new JFrame();
+//        LoginForm loginForm = new LoginForm(null);
+//        User user = loginForm.user;
+//        if (user != null) {
+//            System.out.println("Successful Authentication of: " + user.name);
+//            System.out.println("          Email: " + user.email);
+//            System.out.println("          Phone: " + user.phone);
+//            System.out.println("          Address: " + user.address);
+//        }
+//        else {
+//            System.out.println("Authentication canceled");
+//        }
     }
 }
