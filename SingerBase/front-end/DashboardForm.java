@@ -1,3 +1,5 @@
+package singerbase;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,25 +10,35 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DashboardForm extends JFrame {
-    private JPanel dashboardPanel;
-    private JLabel lbAdmin;
-    private JButton btnRegister;
+    JPanel dashboardPanel;
+    JLabel lblAdmin;
+    JButton btnLogin, btnRegister;
 
     public DashboardForm() {
         setTitle("Dashborad");
-        setContentPane(dashboardPanel);
-        setMinimumSize(new Dimension(500, 429));
-        setSize(1200, 700);
+//        setModal(true);
+//        setContentPane(dashboardPanel);
+//        setMinimumSize(new Dimension(500, 429));
+//        setSize(1200, 700);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        lblAdmin = new JLabel();
+        btnLogin = new JButton("LOGIN");
+        btnRegister = new JButton("REGISTER");
+        dashboardPanel = new JPanel(new GridLayout(3, 1));
+        dashboardPanel.add(lblAdmin);
+        dashboardPanel.add(btnLogin);
+        dashboardPanel.add(btnRegister); 
+        add(dashboardPanel, BorderLayout.CENTER);
+        
         boolean hasRegistredUsers = connectToDatabase();
         if (hasRegistredUsers) {
             //show Login form
-            LoginForm loginForm = new LoginForm(this);
+            LoginForm loginForm = new LoginForm(DashboardForm.this);
             User user = loginForm.user;
 
             if (user != null) {
-                lbAdmin.setText("User: " + user.name);
+                lblAdmin.setText("User: " + user.name);
                 setLocationRelativeTo(null);
                 setVisible(true);
             }
@@ -40,7 +52,7 @@ public class DashboardForm extends JFrame {
             User user = registrationForm.user;
 
             if (user != null) {
-                lbAdmin.setText("User: " + user.name);
+                lblAdmin.setText("User: " + user.name);
                 setLocationRelativeTo(null);
                 setVisible(true);
             }
@@ -48,9 +60,8 @@ public class DashboardForm extends JFrame {
                 dispose();
             }
         }
-        btnRegister.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        
+        btnRegister.addActionListener(e -> { 
                 RegistrationForm registrationForm = new RegistrationForm(DashboardForm.this);
                 User user = registrationForm.user;
 
@@ -61,7 +72,18 @@ public class DashboardForm extends JFrame {
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-        });
+        );
+        btnLogin.addActionListener(e -> { 
+                LoginForm loginForm = new LoginForm(DashboardForm.this);
+            User user = loginForm.user;
+
+            if (user != null) {
+                lblAdmin.setText("User: " + user.name);
+                setLocationRelativeTo(null);
+                setVisible(true);
+            }
+            }
+        );
     }
 
     private boolean connectToDatabase() {
@@ -83,19 +105,21 @@ public class DashboardForm extends JFrame {
             //Second, connect to the database and create the table "users" if cot created
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS users ("
-                    + "id INT( 10 ) NOT NULL PRIMARY KEY AUTO_INCREMENT,"
-                    + "name VARCHAR(200) NOT NULL,"
-                    + "email VARCHAR(200) NOT NULL UNIQUE,"
-                    + "phone VARCHAR(200),"
-                    + "address VARCHAR(200),"
-                    + "password VARCHAR(200) NOT NULL"
-                    + ")";
+            String sql = "CREATE TABLE IF NOT EXISTS SB_User ("
+                    + "user_id VARCHAR(5) NOT NULL,"
+                    + "username VARCHAR(20) NOT NULL,"
+                    + "password VARCHAR(20) NOT NULL,"
+                    + "gender VARCHAR(10),"
+                    + "email VARCHAR(50) NOT NULL,"
+                    + "mobile_no CHAR(10) NOT NULL,"
+                    + "country VARCHAR(30),"
+                    + "PRIMARY KEY(user_id),"
+                    + "FOREIGN KEY (country) REFERENCES Country (country_name))";
             statement.executeUpdate(sql);
 
             //check if we have users in the table users
             statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users");
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SB_User");
 
             if (resultSet.next()) {
                 int numUsers = resultSet.getInt(1);
@@ -115,6 +139,18 @@ public class DashboardForm extends JFrame {
     }
 
     public static void main(String[] args) {
-        DashboardForm myForm = new DashboardForm();
+        
+        try  
+        {  
+            //create instance of the LoginForm  
+            DashboardForm objDashboardForm = new DashboardForm();
+            objDashboardForm.setSize(500,200);
+            objDashboardForm.setVisible(true);  
+        }  
+        catch(Exception e)  
+        {     
+            //handle exception   
+            JOptionPane.showMessageDialog(null, e.getMessage());  
+        }  
     }
 }
