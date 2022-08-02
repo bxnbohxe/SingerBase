@@ -31,10 +31,15 @@ public class Driver
 				switch (selection) {
 				case "create account":
 					System.out.println("creating account");
+					if (proxy.createAccount()) {
+						
+					}
 					break;
 				case "login":
 					System.out.println("logging in");
-					proxy.login();
+					if (proxy.login()) {
+						loggedIn(proxy);
+					}
 					break;
 				case "exit":
 					System.out.println("exiting");
@@ -56,5 +61,15 @@ public class Driver
 			E.printStackTrace();
 		}
 		System.out.println("-----------------------------------END OF PROGRAM---------------------------------------");
+	}
+	
+	static void loggedIn(SQLProxy proxy) {
+		try {
+			proxy.addToFavorites();
+		}
+		catch (Exception E) {
+			System.err.println(E);
+			E.printStackTrace();
+		}
 	}
 }
