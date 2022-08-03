@@ -7,10 +7,8 @@ package singerbase;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
-/**
- *
- * @author Lenovo
- */
+
+
 public class SearchSinger extends JDialog {
     JTextField tfSearchString;
     JTextArea tfResults;
