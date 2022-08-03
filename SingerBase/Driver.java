@@ -87,6 +87,13 @@ public class Driver
 			break;
 		case "2":
 		case "view favorites":
+			try {
+				proxy.viewFavorites();
+			}
+			catch (Exception E) {
+				System.err.println(E);
+				E.printStackTrace();
+			}
 			break;
 		default:
 			System.out.println("Invalid selection");
