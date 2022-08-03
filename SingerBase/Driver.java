@@ -75,7 +75,7 @@ public class Driver
 		while (true) {
 			Scanner scan = new Scanner(System.in);
 			System.out.println("----------------------------------------------------------------");
-			System.out.println("Select an option:\n1) view favorites\n2) add song to favorites\n3) discussions\n4) log out");
+			System.out.println("Select an option:\n1) view favorites\n2) add song to favorites\n3) view singers\n4) discussions\n5) log out");
 			String option = scan.nextLine();
 			
 			switch (option.toUpperCase()) {
@@ -100,11 +100,21 @@ public class Driver
 				}
 				break;
 			case "3":
+			case "VIEW SINGERS":
+				try {
+					proxy.viewSingers();
+				}
+				catch (Exception E) {
+					System.err.println(E);
+					E.printStackTrace();
+				}
+				break;
+			case "4":
 			case "DISCUSSIONS":
 				//scan.close();//why does this cause an issue in the discussions function? why can i not close the scanner and reinitialize it?
 				discussions(proxy);
 				break;
-			case "4":
+			case "5":
 			case "LOG OUT":
 				return;
 			default:
@@ -133,7 +143,7 @@ public class Driver
 				}
 				break;
 			case "2":
-			case "view thread":
+			case "VIEW THREAD":
 				try {
 					proxy.viewThreadPosts();
 				}
