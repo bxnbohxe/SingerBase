@@ -4,7 +4,8 @@ SingerBase is an application designed with the goal of allowing users to connect
 <sub>Having OracleDB and Java installed will be necessary to run this application.</sub>
 ###### Step 1
 <sub>Clone GitHub repository.</sub>. 
-`https://github.com/bxnbohxe/SingerBase/`
+
+`git clone https://github.com/bxnbohxe/SingerBase/`
 ## Division of Roles
 ###### Alicia Le (bxnbohxe)
 <sub>Database code</sub>
