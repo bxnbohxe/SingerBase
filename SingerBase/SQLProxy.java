@@ -228,28 +228,29 @@ public class SQLProxy
 				System.out.println("Failed to create account.");
 				return false;
 			}
-			else {
-				sql = "SELECT country_name FROM Country WHERE country_name = '" + country + "'";
-				s.executeQuery(sql);
-				result = s.getResultSet();
-				if (result != null && result.next() == false) {//country not found in db, returns empty set
-					System.out.println("Country not found in database, defaulting to \"Not listed\".");
-					country = "Not listed";
-				}
-				
-				sql = "SELECT COUNT(*) FROM SB_User";
-				s.executeQuery(sql);
-				result = s.getResultSet();
-				result.next();
-				int newKeyNo = result.getInt(1) + 1;
-				//System.out.println(existingUser + " users already exist");
-				
-				//THIS ASSUMES ALL THE INFORMATION ENTERED IS VALID. CHECKING INFORMATION VALIDITY IS REQUIRED FOR THE FUTURE BUT NOT A CURRENT PRIORITY
-				sql = "INSERT INTO SB_User VALUES ('U" + newKeyNo + "', '" + username + "', '" + password + "', '" + gender + "', '"
-						+ email + "', '" + phone + "', '" + country + "')";
-				s.executeUpdate(sql);
-				return true;
+		}
+		else {
+			sql = "SELECT country_name FROM Country WHERE country_name = '" + country + "'";
+			s.executeQuery(sql);
+			result = s.getResultSet();
+			if (result != null && result.next() == false) {//country not found in db, returns empty set
+				System.out.println("Country not found in database, defaulting to \"Not listed\".");
+				country = "Not listed";
 			}
+			
+			sql = "SELECT COUNT(*) FROM SB_User";
+			s.executeQuery(sql);
+			result = s.getResultSet();
+			result.next();
+			int newKeyNo = result.getInt(1) + 1;
+			//System.out.println(existingUser + " users already exist");
+			
+			//THIS ASSUMES ALL THE INFORMATION ENTERED IS VALID. CHECKING INFORMATION VALIDITY IS REQUIRED FOR THE FUTURE BUT NOT A CURRENT PRIORITY
+			sql = "INSERT INTO SB_User VALUES ('U" + newKeyNo + "', '" + username + "', '" + password + "', '" + gender + "', '"
+					+ email + "', '" + phone + "', '" + country + "')";
+			s.executeUpdate(sql);
+			System.out.println("Created account");
+			return true;
 		}
 		return false;//temp
 	}
