@@ -2,8 +2,7 @@
 SingerBase is an application designed with the goal of allowing users to connect with each other through the interest of music, with additional features including a database of singers and songs from which users could view information.
 ## How to Install and Run
 <sub>Having OracleDB and Java installed will be necessary to run this application.</sub>
-###### Step 1
-<sub>Clone GitHub repository.</sub>
+###### Step 1 <sub>Clone GitHub repository.</sub>
 
 `git clone https://github.com/bxnbohxe/SingerBase/`
 ## Division of Roles
