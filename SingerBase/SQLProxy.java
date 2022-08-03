@@ -11,6 +11,30 @@ public class SQLProxy
 		user_id = null;
 	}
 	
+	protected boolean viewThreads() throws SQLException {
+		Statement s = C.createStatement();
+		String sql = "SELECT * FROM Thread";
+		s.executeQuery(sql);
+		ResultSet result = s.getResultSet();
+		
+		boolean noThreads = true;
+		while (result.next()) {
+			System.out.println("Thread ID: " + result.getString("TID") + "\n    Topic: " + result.getString("topic"));
+			noThreads = false;
+		}
+		if (noThreads) {
+			System.out.println("Nobody has created any threads. It's quiet in here...");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	/**Allows a user to see what songs they have added to their favorites list
+	 * @return true if the list of songs was not empty, false otherwise
+	 * @throws SQLException
+	 */
 	protected boolean viewFavorites() throws SQLException {
 		String favoritesId = initializeFavorites();
 				

@@ -25,7 +25,7 @@ public class Driver
 			String selection;
 			Scanner scan = new Scanner(System.in);//currently set as if the user will interact through terminal, will need to change
 			System.out.println("What would you like to do?");
-			System.out.println("1) create account\n2) login\n3) exit");
+			System.out.println("1) create account\n2) log in\n3) exit");
 			selection = scan.nextLine();
 			
 			while (!selection.equals("exit")) {
@@ -38,7 +38,7 @@ public class Driver
 					}
 					break;
 				case "2":
-				case "LOGIN":
+				case "LOG IN":
 					System.out.println("logging in");
 					if (proxy.login()) {
 						
@@ -50,6 +50,7 @@ public class Driver
 					System.out.println("exiting");
 					scan.close();
 					C.close();
+					System.exit(0);
 					break;
 				case "TEST":
 					proxy.testQuery();
@@ -59,7 +60,8 @@ public class Driver
 					break;
 				}
 				
-				System.out.println("what would you like to do?");
+				System.out.println("What would you like to do?");
+				System.out.println("1) create account\n2) log in\n3) exit");
 				selection = scan.nextLine();
 			}
 		}
@@ -67,37 +69,79 @@ public class Driver
 			System.err.println("Error connecting: " + E);
 			E.printStackTrace();
 		}
-		System.out.println("-----------------------------------END OF PROGRAM---------------------------------------");
+		System.out.println("-----------------------------------UNEXPECTED END OF PROGRAM (---------------------------------------");
 	}
 	
-	static void loggedIn(SQLProxy proxy) {
-		System.out.println("Select an option:\n1) add song to favorites\n2) view favorites");
-		Scanner scan = new Scanner(System.in);
-		String option = scan.nextLine();
-		switch (option.toUpperCase()) {
-		case "1":
-		case "ADD SONG TO FAVORITES":
-			try {
-				proxy.addToFavorites();
+	static void loggedIn(SQLProxy proxy) {	
+		while (true) {
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Select an option:\n1) view favorites\n2) add song to favorites\n3) discussions\n4) log out");
+			String option = scan.nextLine();
+			
+			switch (option.toUpperCase()) {
+			case "1":
+			case "VIEW FAVORITES":
+				try {
+					proxy.viewFavorites();
+				}
+				catch (Exception E) {
+					System.err.println(E);
+					E.printStackTrace();
+				}
+				break;
+			case "2":
+			case "ADD SONG TO FAVORITES":
+				try {
+					proxy.addToFavorites();
+				}
+				catch (Exception E) {
+					System.err.println(E);
+					E.printStackTrace();
+				}
+				break;
+			case "3":
+			case "DISCUSSIONS":
+				//scan.close();//why does this cause an issue in the discussions function? why can i not close the scanner and reinitialize it?
+				discussions(proxy);
+				break;
+			case "4":
+			case "LOG OUT":
+				return;
+			default:
+				System.out.println("Invalid selection");
+				break;
 			}
-			catch (Exception E) {
-				System.err.println(E);
-				E.printStackTrace();
+		}		
+	}
+	
+	static void discussions(SQLProxy proxy) {
+		
+		while (true) {
+			Scanner scan = new Scanner(System.in);	
+			System.out.println("Select an option:\n1) view threads\n2) post to thread\n3) go back");
+			String option = scan.nextLine();
+			
+			switch (option.toUpperCase()) {
+			case "1":
+			case "VIEW THREADS":
+				try {
+					proxy.viewThreads();
+				}
+				catch (Exception E) {
+					System.err.println(E);
+					E.printStackTrace();
+				}
+				break;
+			case "2":
+			case "POST TO THREAD":
+				break;
+			case "3":
+			case "GO BACK":
+				return;
+			default:
+				System.out.println("Invalid selection");
+				break;
 			}
-			break;
-		case "2":
-		case "view favorites":
-			try {
-				proxy.viewFavorites();
-			}
-			catch (Exception E) {
-				System.err.println(E);
-				E.printStackTrace();
-			}
-			break;
-		default:
-			System.out.println("Invalid selection");
-			break;
-		}	
+		}
 	}
 }
