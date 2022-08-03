@@ -3,8 +3,8 @@
 ## How to Install and Run
 <sub>Having OracleDB and Java installed will be necessary to run this application.</sub>
 ###### Step 1
-Clone GitHub repository.
-<sub>`https://github.com/bxnbohxe/SingerBase/`</sub>
+<sub>Clone GitHub repository.</sub>
+`https://github.com/bxnbohxe/SingerBase/`
 ## Division of Roles
 ###### Alicia Le (bxnbohxe)
 <sub>Database code</sub>
