@@ -24,22 +24,21 @@ public class Driver
 			
 			String selection;
 			Scanner scan = new Scanner(System.in);//currently set as if the user will interact through terminal, will need to change
-			System.out.println("What would you like to do?");
-			System.out.println("1) create account\n2) log in\n3) exit");
+			System.out.println("What would you like to do?\n1) create account\n2) log in\n3) exit");
 			selection = scan.nextLine();
 			
 			while (!selection.equals("exit")) {
 				switch (selection.toUpperCase()) {
 				case "1":
 				case "CREATE ACCOUNT":
-					System.out.println("creating account");
+					System.out.println("Creating account");
 					if (proxy.createAccount()) {
 						
 					}
 					break;
 				case "2":
 				case "LOG IN":
-					System.out.println("logging in");
+					//System.out.println("logging in");
 					if (proxy.login()) {
 						
 						loggedIn(proxy);
@@ -60,8 +59,8 @@ public class Driver
 					break;
 				}
 				
-				System.out.println("What would you like to do?");
-				System.out.println("1) create account\n2) log in\n3) exit");
+				System.out.println("----------------------------------------------------------------");
+				System.out.println("What would you like to do?\n1) create account\n2) log in\n3) exit");
 				selection = scan.nextLine();
 			}
 		}
@@ -75,6 +74,7 @@ public class Driver
 	static void loggedIn(SQLProxy proxy) {	
 		while (true) {
 			Scanner scan = new Scanner(System.in);
+			System.out.println("----------------------------------------------------------------");
 			System.out.println("Select an option:\n1) view favorites\n2) add song to favorites\n3) discussions\n4) log out");
 			String option = scan.nextLine();
 			
@@ -118,12 +118,12 @@ public class Driver
 		
 		while (true) {
 			Scanner scan = new Scanner(System.in);	
-			System.out.println("Select an option:\n1) view threads\n2) post to thread\n3) go back");
+			System.out.println("Select an option:\n1) list threads\n2) view thread\n3) post to thread\n4) go back");
 			String option = scan.nextLine();
 			
 			switch (option.toUpperCase()) {
 			case "1":
-			case "VIEW THREADS":
+			case "LIST THREADS":
 				try {
 					proxy.viewThreads();
 				}
@@ -133,9 +133,19 @@ public class Driver
 				}
 				break;
 			case "2":
-			case "POST TO THREAD":
+			case "view thread":
+				try {
+					proxy.viewThreadPosts();
+				}
+				catch (Exception E) {
+					System.err.println(E);
+					E.printStackTrace();
+				}
 				break;
 			case "3":
+			case "POST TO THREAD":
+				break;
+			case "4":
 			case "GO BACK":
 				return;
 			default:

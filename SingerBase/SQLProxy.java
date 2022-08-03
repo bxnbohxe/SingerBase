@@ -11,6 +11,45 @@ public class SQLProxy
 		user_id = null;
 	}
 	
+	/**Allows users to see the posts in a thread
+	 * @return true if the thread has any posts, false otherwise
+	 * @throws SQLException
+	 */
+	protected boolean viewThreadPosts() throws SQLException {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Enter thread ID: ");
+		String threadId = scan.nextLine();
+		
+		Statement s = C.createStatement();
+		String sql = "SELECT * FROM Post WHERE TID = '" + threadId + "'";
+		s.executeQuery(sql);
+		ResultSet result = s.getResultSet();
+		
+		boolean emptyThread = true;
+		int postCount = 1;
+		while (result.next()) {
+//			System.out.println("test");
+			Statement s2 = C.createStatement();//not sure why i can't just use the same statement object with a different ResultSet object
+			sql = "SELECT username FROM SB_User WHERE user_id = '" + result.getString("user_id") + "'";
+			s2.executeQuery(sql);
+			ResultSet result2 = s2.getResultSet();
+			result2.next();
+			System.out.println("--->" + postCount + ") posted by: " + result2.getString("username"));
+			emptyThread = false;
+		}
+		if (emptyThread) {
+			System.out.println("Nobdy has posted to this thread.");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	/**Allows users to see the list of threads
+	 * @return true if threads exist, false otherwise
+	 * @throws SQLException
+	 */
 	protected boolean viewThreads() throws SQLException {
 		Statement s = C.createStatement();
 		String sql = "SELECT * FROM Thread";
