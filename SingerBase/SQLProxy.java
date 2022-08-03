@@ -11,7 +11,28 @@ public class SQLProxy
 		user_id = null;
 	}
 	
-	/**Allows users to
+	protected boolean viewFavorites() throws SQLException {
+		String favoritesId = initializeFavorites();
+				
+		Statement s = C.createStatement();
+		String sql = "SELECT * FROM Song S WHERE S.song_id IN (SELECT J.song_id FROM Song_Song_List_Junction J WHERE song_list_id = '" + favoritesId + "')";
+		s.executeQuery(sql);
+		ResultSet result = s.getResultSet();
+		boolean favoritesEmpty = true;
+		while (result.next()) {
+			System.out.println("Song title: " + result.getString("title"));
+			favoritesEmpty = false;
+		}
+		if (favoritesEmpty) {
+			System.out.println("You do not have any favorited songs.");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+		
+	/**Allows users to add a song to their list of favorites
 	 * @return
 	 * @throws SQLException
 	 */
@@ -39,7 +60,8 @@ public class SQLProxy
 				return false;
 			}
 			else {
-				sql = "INSERT INTO Song_Song_List_Junction VALUES ('" + favoritesId + "', '" + songId + "'";
+				System.out.println("song id of \"" + songName + "\": " + songId);
+				sql = "INSERT INTO Song_Song_List_Junction VALUES ('" + favoritesId + "', '" + songId + "')";
 				s.executeUpdate(sql);
 				return true;
 			}
@@ -54,7 +76,7 @@ public class SQLProxy
 	 * @throws SQLException
 	 */
 	private String initializeFavorites() throws SQLException {
-		System.out.println("user id: " + user_id);
+		//System.out.println("user id: " + user_id);
 		Statement s = C.createStatement();
 		String sql = "SELECT * FROM Song_List WHERE user_id = '" + user_id + "'";
 		s.executeQuery(sql);
@@ -77,7 +99,7 @@ public class SQLProxy
 	 * @return true if account successfully created, false otherwise
 	 * @throws SQLException
 	 */
-	public boolean createAccount() throws SQLException {
+	protected boolean createAccount() throws SQLException {
 		String username, password, gender, email, phone, country;
 		Scanner scan = new Scanner(System.in);//currently set as if the user will interact through terminal, will need to change
 		System.out.print("Enter username: ");
@@ -149,7 +171,7 @@ public class SQLProxy
 	 * @return true if logged in successfully, false otherwise
 	 * @throws SQLException
 	 */
-	public boolean login() throws SQLException {
+	protected boolean login() throws SQLException {
 		String username;
 		String password;//currently no password system yet
 		Scanner scan = new Scanner(System.in);//currently set as if the user will interact through terminal, will need to change
@@ -178,7 +200,7 @@ public class SQLProxy
 	/**Takes the name of a table as user input and returns the contents of that table.
 	 * @throws SQLException
 	 */
-	public void testQuery() throws SQLException {
+	protected void testQuery() throws SQLException {
 		System.out.println("testing");
 		String table;
 		Scanner scan = new Scanner(System.in);//currently set as if the user will interact through terminal, will need to change
