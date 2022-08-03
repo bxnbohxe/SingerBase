@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class DashboardForm extends JFrame {
     JPanel dashboardPanel;
     JLabel lblAdmin;
-    JButton btnLogin, btnRegister;
+    JButton btnLogin, btnRegister, btnSearchSinger;
 
     public DashboardForm() {
         setTitle("Dashborad");
@@ -24,10 +24,12 @@ public class DashboardForm extends JFrame {
 
         lblAdmin = new JLabel();
         btnLogin = new JButton("LOGIN");
+        btnSearchSinger = new JButton("SEARCH SINGER");
         btnRegister = new JButton("REGISTER");
-        dashboardPanel = new JPanel(new GridLayout(3, 1));
+        dashboardPanel = new JPanel(new GridLayout(4, 1));
         dashboardPanel.add(lblAdmin);
         dashboardPanel.add(btnLogin);
+        dashboardPanel.add(btnSearchSinger);
         dashboardPanel.add(btnRegister); 
         add(dashboardPanel, BorderLayout.CENTER);
         
@@ -84,6 +86,19 @@ public class DashboardForm extends JFrame {
             }
             }
         );
+       btnSearchSinger.addActionListener(e -> {
+
+            if(!lblAdmin.getText().equals("User: ")) { 
+                SearchSinger objSearchSinger = new SearchSinger(DashboardForm.this); }
+
+            else {
+                JOptionPane.showMessageDialog(DashboardForm.this,"User Must Login To Search Singer","Login Failed",JOptionPane.INFORMATION_MESSAGE);
+            }
+   
+
+}
+
+);
     }
 
     private boolean connectToDatabase() {
