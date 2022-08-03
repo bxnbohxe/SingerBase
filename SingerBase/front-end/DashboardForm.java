@@ -117,7 +117,7 @@ public class DashboardForm extends JFrame {
             statement.close();
             conn.close();
 
-            //Second, connect to the database and create the table "users" if cot created
+            //Second, connect to the database and create the table "users" if not created
             conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             statement = conn.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS SB_User ("
