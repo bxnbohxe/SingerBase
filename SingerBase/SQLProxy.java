@@ -11,6 +11,30 @@ public class SQLProxy
 		user_id = null;
 	}
 	
+	/**Allows users to see the list of singers in the database
+	 * @return true if there are any singers, false otherwise
+	 * @throws SQLException
+	 */
+	protected boolean viewSingers() throws SQLException {
+		Statement s = C.createStatement();
+		String sql = "SELECT * FROM Singer";
+		s.executeQuery(sql);
+		ResultSet result = s.getResultSet();
+		
+		boolean noSingers = true;
+		while (result.next()) {
+			System.out.println("Name: " + result.getString("fname") + " " + result.getString("lname") + "\n    Stage name: " + result.getString("stage_name"));
+			noSingers = false;
+		}
+		if (noSingers) {
+			System.out.println("No singers have been added to the database.");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
 	/**Allows users to see the posts in a thread
 	 * @return true if the thread has any posts, false otherwise
 	 * @throws SQLException
