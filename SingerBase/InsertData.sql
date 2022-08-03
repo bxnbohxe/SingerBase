@@ -56,6 +56,7 @@ INSERT ALL
 	INTO SB_User VALUES('U8', 'shadowclatter', 'm', 'elmarslove@encuestan.com', '7800619848', 'South Africa')
 	INTO SB_User VALUES('U9', 'kourindou', 'm', 'morichika_r@gmail.com', '1767290753', 'Japan')
 	INTO SB_User VALUES('U10', 'heathspoonbill', 'm', 'runeab@nbobd.com', '1392152935', 'Australia')
+	INTO SB_User VALUES('U11', '11', '1', NULL, '1', '1', NULL)
 SELECT * FROM dual;
 
 INSERT ALL
