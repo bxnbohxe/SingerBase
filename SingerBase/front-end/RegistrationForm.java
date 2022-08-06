@@ -2,12 +2,6 @@ package singerbase;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedaStatement;
-import java.sql.Statement;
 
 public class RegistrationForm extends JDialog {
     JTextField tfUserName, tfEmail, tfPhone;
@@ -16,14 +10,15 @@ public class RegistrationForm extends JDialog {
     JLabel lblUserName, lblEmail, lblPhone, lblPassword, lblConfirmPassword;
     JButton btnRegister, btnCancel;
     JPanel loginPanel;
+    MySQLDB objMySQLDB = new MySQLDB();
 
-    public RegistrationForm() {
-//        super(parent);
+    public RegistrationForm(JFrame parent) {
+        super(parent);
         setTitle("Create a new account");
 //        setContentPane(registerPanel);
-//        setMinimumSize(new Dimension(450, 474));
+        setMinimumSize(new Dimension(500, 200));
         setModal(true);
-//        setLocationRelativeTo(parent);
+        setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         lblUserName = new JLabel();  
@@ -73,7 +68,7 @@ public class RegistrationForm extends JDialog {
         btnRegister.addActionListener(e -> { registerUser(); });
         btnCancel.addActionListener(e -> dispose());
 
-//        setVisible(true);
+        setVisible(true);
     }
 
     private void registerUser() {
@@ -112,29 +107,16 @@ public class RegistrationForm extends JDialog {
         }
     }
 
-    public User user;
+    public User user = new User();
     private User addUserToDatabase(String name, String email, String phone, String password) {
         User user = null;
-        final String DB_URL = "jdbc:mysql://localhost/MyStore?serverTimezone=UTC";
-        final String USERNAME = "root";
-        final String PASSWORD = "";
 
         try{
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            // Connected to database successfully...
-
-            Statement stmt = conn.createStatement();
             String sql = "INSERT INTO sb_user (user_id, username, email, mobile_no, password) " +
                     "select (SELECT CONCAT('U', (count(*) + 1)) FROM sb_user), ?, ?, ?, ?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, phone);
-//            preparedStatement.setString(4, address);
-            preparedStatement.setString(4, password);
 
             //Insert row into the table
-            int addedRows = preparedStatement.executeUpdate();
+            int addedRows = objMySQLDB.ExecuteNonQuery(sql);
             if (addedRows > 0) {
                 user = new User();
                 user.name = name;
@@ -149,9 +131,6 @@ public class RegistrationForm extends JDialog {
             else {
                 System.out.println("Registration canceled");
             }
-
-            stmt.close();
-            conn.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -171,7 +150,7 @@ public class RegistrationForm extends JDialog {
     try  
         {  
             //create instance of the LoginForm  
-            RegistrationForm objRegistrationForm = new RegistrationForm();  
+            RegistrationForm objRegistrationForm = new RegistrationForm(null);  
             objRegistrationForm.setSize(500,200);
             objRegistrationForm.setVisible(true);  
         }  
