@@ -2,7 +2,7 @@ package singerbase;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.*;
+import java.sql.ResultSet;
 
 public class LoginForm extends JDialog {
     JTextField tfEmail;
@@ -10,14 +10,15 @@ public class LoginForm extends JDialog {
     JButton btnOK, btnCancel;
     JLabel lblEmail, lblPassword;
     JPanel loginPanel;
+    MySQLDB objMySQLDB = new MySQLDB();
 
-    public LoginForm() {
-//        super(parent);
+    public LoginForm(JFrame parent) {
+        super(parent);
         setTitle("Login");
 //        setContentPane(loginPanel);
-//        setMinimumSize(new Dimension(450, 474));
+        setMinimumSize(new Dimension(300, 100));
         setModal(true);
-//        setLocationRelativeTo(parent);
+        setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 //
         
@@ -42,6 +43,7 @@ public class LoginForm extends JDialog {
         loginPanel.add(btnOK);
         loginPanel.add(btnCancel);
         add(loginPanel, BorderLayout.CENTER);
+        
         btnOK.addActionListener(e -> {
             String email = tfEmail.getText();
             String password = String.valueOf(pfPassword.getPassword());
@@ -59,39 +61,26 @@ public class LoginForm extends JDialog {
             }
         });
         btnCancel.addActionListener(e -> dispose());
-
+        setVisible(true);
     }
 
-    public User user;
-    private User getAuthenticatedUser(String email, String password) {
-        User user = null;
-
-        final String DB_URL = "jdbc:mysql://localhost/MyStore?serverTimezone=UTC";
-        final String USERNAME = "root";
-        final String PASSWORD = "";
+    public User user = new User();
+    public User getAuthenticatedUser(String email, String password) {
+        User user = new User();
+        if(email.equals("") && password.equals("")) { return user; }
 
         try{
-            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-    
-
-            Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM sb_user WHERE email=? AND password=?";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
+            ResultSet resultSet = objMySQLDB.ExecuteDataAdapter("SELECT * FROM sb_user WHERE email='" + email + "' AND password='" + password + "'");
             if (resultSet.next()) {
                 user = new User();
                 user.name = resultSet.getString("username");
                 user.email = resultSet.getString("email");
                 user.phone = resultSet.getString("mobile_no");
-//                user.address = resultSet.getString("address");
+                user.user_id = resultSet.getString("user_id");
                 user.password = resultSet.getString("password");
             }
 
-                    if (user != null) {
+                    if (user.user_id != null) {
             System.out.println("Successful Authentication of: " + user.name);
             System.out.println("          Email: " + user.email);
             System.out.println("          Phone: " + user.phone);
@@ -100,9 +89,6 @@ public class LoginForm extends JDialog {
         else {
             System.out.println("Authentication canceled");
         }
-            stmt.close();
-            conn.close();
-
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -115,7 +101,7 @@ public class LoginForm extends JDialog {
         try  
         {  
             //create instance of the LoginForm  
-            LoginForm objLoginForm = new LoginForm();  
+            LoginForm objLoginForm = new LoginForm(null);  
             objLoginForm.setSize(300,100);
             objLoginForm.setVisible(true);  
         }  
